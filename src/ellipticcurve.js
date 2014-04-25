@@ -1,10 +1,10 @@
-//https://raw.github.com/bitcoinjs/bitcoinjs-lib/faa10f0f6a1fff0b9a99fffb9bc30cee33b17212/src/ecdsa.js
+//https://raw.github.com/litecoinjs/litecoinjs-lib/faa10f0f6a1fff0b9a99fffb9bc30cee33b17212/src/ecdsa.js
 /*!
 * Basic Javascript Elliptic Curve implementation
 * Ported loosely from BouncyCastle's Java EC code
 * Only Fp curves implemented for now
 * 
-* Copyright Tom Wu, bitaddress.org  BSD License.
+* Copyright Tom Wu, liteaddress.org  BSD License.
 * http://www-cs-students.stanford.edu/~tjw/jsbn/LICENSE
 */
 (function () {
@@ -66,7 +66,7 @@
 	* returns the right value - if none exists it returns null.
 	* 
 	* Copyright (c) 2000 - 2011 The Legion Of The Bouncy Castle (http://www.bouncycastle.org)
-	* Ported to JavaScript by bitaddress.org
+	* Ported to JavaScript by liteaddress.org
 	*/
 	ec.FieldElementFp.prototype.sqrt = function () {
 		if (!this.q.testBit(0)) throw new Error("even value of q");
@@ -116,7 +116,7 @@
 
 	/*
 	* Copyright (c) 2000 - 2011 The Legion Of The Bouncy Castle (http://www.bouncycastle.org)
-	* Ported to JavaScript by bitaddress.org
+	* Ported to JavaScript by liteaddress.org
 	*/
 	ec.FieldElementFp.fastLucasSequence = function (p, P, Q, k) {
 		// TODO Research and apply "common-multiplicand multiplication here"
@@ -345,12 +345,12 @@
 		return R;
 	};
 
-	// patched by bitaddress.org and Casascius for use with Bitcoin.ECKey
+	// patched by liteaddress.org and Casascius for use with Litecoin.ECKey
 	// patched by coretechs to support compressed public keys
 	ec.PointFp.prototype.getEncoded = function (compressed) {
 		var x = this.getX().toBigInteger();
 		var y = this.getY().toBigInteger();
-		var len = 32; // integerToBytes will zero pad if integer is less than 32 bytes. 32 bytes length is required by the Bitcoin protocol.
+		var len = 32; // integerToBytes will zero pad if integer is less than 32 bytes. 32 bytes length is required by the Litecoin protocol.
 		var enc = ec.integerToBytes(x, len);
 
 		// when compressed prepend byte depending if y point is even or odd 
@@ -550,7 +550,7 @@
 	};
 
 	// for now, work with hex strings because they're easier in JS
-	// compressed support added by bitaddress.org
+	// compressed support added by liteaddress.org
 	ec.CurveFp.prototype.decodePointHex = function (s) {
 		var firstByte = parseInt(s.substr(0, 2), 16);
 		switch (firstByte) { // first byte
@@ -595,7 +595,7 @@
 
 	/*
 	* Copyright (c) 2000 - 2011 The Legion Of The Bouncy Castle (http://www.bouncycastle.org)
-	* Ported to JavaScript by bitaddress.org
+	* Ported to JavaScript by liteaddress.org
 	*
 	* Number yTilde
 	* BigInteger X1
@@ -643,9 +643,9 @@
 	ec.X9Parameters.prototype.getN = function () { return this.n; };
 	ec.X9Parameters.prototype.getH = function () { return this.h; };
 
-	// secp256k1 is the Curve used by Bitcoin
+	// secp256k1 is the Curve used by Litecoin
 	ec.secNamedCurves = {
-		// used by Bitcoin
+		// used by Litecoin
 		"secp256k1": function () {
 			// p = 2^256 - 2^32 - 2^9 - 2^8 - 2^7 - 2^6 - 2^4 - 1
 			var p = ec.fromHex("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2F");
@@ -661,7 +661,7 @@
 		}
 	};
 
-	// secp256k1 called by Bitcoin's ECKEY
+	// secp256k1 called by Litecoin's ECKEY
 	ec.getSECCurveByName = function (name) {
 		if (ec.secNamedCurves[name] == undefined) return null;
 		return ec.secNamedCurves[name]();

@@ -44,15 +44,15 @@ ninja.wallets.splitwallet = {
 		try {
 			var numshares = parseInt(document.getElementById('splitshares').value);
 			var threshold = parseInt(document.getElementById('splitthreshold').value);
-			var key = new Bitcoin.ECKey(false);
-			var bitcoinAddress = key.getBitcoinAddress();
-			var shares = ninja.wallets.splitwallet.getFormattedShares(key.getBitcoinHexFormat(), numshares, threshold);
+			var key = new Litecoin.ECKey(false);
+			var litecoinAddress = key.getLitecoinAddress();
+			var shares = ninja.wallets.splitwallet.getFormattedShares(key.getLitecoinHexFormat(), numshares, threshold);
 
 			var output = document.createElement("div");
 			output.setAttribute("id", "splitoutput");
 			var m = {};
-			output.appendChild(this.mkOutputRow(bitcoinAddress, "split_addr", "Bitcoin Address:    "));
-			m["split_addr"] = bitcoinAddress;
+			output.appendChild(this.mkOutputRow(litecoinAddress, "split_addr", "Litecoin Address:    "));
+			m["split_addr"] = litecoinAddress;
 
 			for (var i = 0; i < shares.length; i++) {
 				var id = "split_qr_" + i;
@@ -67,7 +67,7 @@ ninja.wallets.splitwallet = {
 			document.getElementById("splitstep1icon").setAttribute("class", "less");
 		}
 		catch (e) {
-			// browser does not have sufficient JavaScript support to generate a bitcoin address
+			// browser does not have sufficient JavaScript support to generate a litecoin address
 			alert(e);
 		}
 	},
@@ -78,7 +78,7 @@ ninja.wallets.splitwallet = {
 			document.getElementById("combinedprivatekey").innerHTML = "";
 			var shares = document.getElementById("combineinput").value.trim().split(/\W+/);
 			var combinedBytes = ninja.wallets.splitwallet.combineFormattedShares(shares);
-			var privkeyBase58 = new Bitcoin.ECKey(combinedBytes).getBitcoinWalletImportFormat();
+			var privkeyBase58 = new Litecoin.ECKey(combinedBytes).getLitecoinWalletImportFormat();
 			document.getElementById("combinedprivatekey").innerHTML = privkeyBase58;
 		}
 		catch (e) {
@@ -88,13 +88,13 @@ ninja.wallets.splitwallet = {
 
 	// generate shares and format them in base58
 	getFormattedShares: function (key, numshares, threshold) {
-		var shares = secrets.share(key, numshares, threshold).map(ninja.wallets.splitwallet.hexToBytes).map(Bitcoin.Base58.encode);
+		var shares = secrets.share(key, numshares, threshold).map(ninja.wallets.splitwallet.hexToBytes).map(Litecoin.Base58.encode);
 		return shares;
 	},
 
-	// combine base58 formatted shares and return a bitcoin byte array
+	// combine base58 formatted shares and return a litecoin byte array
 	combineFormattedShares: function (shares) {
-		var combined = secrets.combine(shares.map(Bitcoin.Base58.decode).map(Crypto.util.bytesToHex).map(ninja.wallets.splitwallet.stripLeadZeros));
+		var combined = secrets.combine(shares.map(Litecoin.Base58.decode).map(Crypto.util.bytesToHex).map(ninja.wallets.splitwallet.stripLeadZeros));
 		return ninja.wallets.splitwallet.hexToBytes(combined);
 	},
 

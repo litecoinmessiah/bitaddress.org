@@ -13,10 +13,10 @@ ninja.wallets.bulkwallet = {
 	},
 
 	// use this function to bulk generate addresses
-	// rowLimit: number of Bitcoin Addresses to generate
+	// rowLimit: number of Litecoin Addresses to generate
 	// startIndex: add this number to the row index for output purposes
 	// returns:
-	// index,bitcoinAddress,privateKeyWif
+	// index,litecoinAddress,privateKeyWif
 	buildCSV: function (rowLimit, startIndex, compressedAddrs) {
 		var bulkWallet = ninja.wallets.bulkwallet;
 		document.getElementById("bulktextarea").value = ninja.translator.get("bulkgeneratingaddresses") + rowLimit;
@@ -37,13 +37,13 @@ ninja.wallets.bulkwallet = {
 		var bulkWallet = ninja.wallets.bulkwallet;
 		if (bulkWallet.csvRowsRemaining > 0) {
 			bulkWallet.csvRowsRemaining--;
-			var key = new Bitcoin.ECKey(false);
+			var key = new Litecoin.ECKey(false);
 			key.setCompressed(bulkWallet.compressedAddrs);
 
 			bulkWallet.csv.push((bulkWallet.csvRowLimit - bulkWallet.csvRowsRemaining + bulkWallet.csvStartIndex)
-								+ ",\"" + key.getBitcoinAddress() + "\",\"" + key.toString("wif")
+								+ ",\"" + key.getLitecoinAddress() + "\",\"" + key.toString("wif")
 			//+	"\",\"" + key.toString("wifcomp")    // uncomment these lines to add different private key formats to the CSV
-			//+ "\",\"" + key.getBitcoinHexFormat() 
+			//+ "\",\"" + key.getLitecoinHexFormat() 
 			//+ "\",\"" + key.toString("base64") 
 								+ "\"");
 

@@ -10,22 +10,22 @@ ninja.wallets.singlewallet = {
 		document.getElementById("singlearea").style.display = "none";
 	},
 
-	// generate bitcoin address and private key and update information in the HTML
+	// generate litecoin address and private key and update information in the HTML
 	generateNewAddressAndKey: function () {
 		try {
-			var key = new Bitcoin.ECKey(false);
-			var bitcoinAddress = key.getBitcoinAddress();
-			var privateKeyWif = key.getBitcoinWalletImportFormat();
-			document.getElementById("btcaddress").innerHTML = bitcoinAddress;
+			var key = new Litecoin.ECKey(false);
+			var litecoinAddress = key.getLitecoinAddress();
+			var privateKeyWif = key.getLitecoinWalletImportFormat();
+			document.getElementById("btcaddress").innerHTML = litecoinAddress;
 			document.getElementById("btcprivwif").innerHTML = privateKeyWif;
 			var keyValuePair = {
-				"qrcode_public": bitcoinAddress,
+				"qrcode_public": litecoinAddress,
 				"qrcode_private": privateKeyWif
 			};
 			ninja.qrCode.showQrCode(keyValuePair, 4);
 		}
 		catch (e) {
-			// browser does not have sufficient JavaScript support to generate a bitcoin address
+			// browser does not have sufficient JavaScript support to generate a litecoin address
 			alert(e);
 			document.getElementById("btcaddress").innerHTML = "error";
 			document.getElementById("btcprivwif").innerHTML = "error";

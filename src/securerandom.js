@@ -5,7 +5,7 @@
 * <body onclick='SecureRandom.seedTime();' onkeypress='SecureRandom.seedTime();'>
 * in your main HTML document.
 * 
-* Copyright Tom Wu, bitaddress.org  BSD License.
+* Copyright Tom Wu, liteaddress.org  BSD License.
 * http://www-cs-students.stanford.edu/~tjw/jsbn/LICENSE
 */
 (function () {

@@ -92,7 +92,7 @@ ninja.wallets.paperwallet = {
 		}
 	},
 
-	// generate bitcoin address, private key, QR Code and update information in the HTML
+	// generate litecoin address, private key, QR Code and update information in the HTML
 	// idPostFix: 1, 2, 3, etc.
 	generateNewWallet: function (idPostFix) {
 		if (ninja.wallets.paperwallet.encrypt) {
@@ -106,14 +106,14 @@ ninja.wallets.paperwallet = {
 			});
 		}
 		else {
-			var key = new Bitcoin.ECKey(false);
-			var bitcoinAddress = key.getBitcoinAddress();
-			var privateKeyWif = key.getBitcoinWalletImportFormat();
+			var key = new Litecoin.ECKey(false);
+			var litecoinAddress = key.getLitecoinAddress();
+			var privateKeyWif = key.getLitecoinWalletImportFormat();
 			if (ninja.wallets.paperwallet.useArtisticWallet) {
-				ninja.wallets.paperwallet.showArtisticWallet(idPostFix, bitcoinAddress, privateKeyWif);
+				ninja.wallets.paperwallet.showArtisticWallet(idPostFix, litecoinAddress, privateKeyWif);
 			}
 			else {
-				ninja.wallets.paperwallet.showWallet(idPostFix, bitcoinAddress, privateKeyWif);
+				ninja.wallets.paperwallet.showWallet(idPostFix, litecoinAddress, privateKeyWif);
 			}
 		}
 	},
@@ -128,7 +128,7 @@ ninja.wallets.paperwallet = {
 							"<div class='public'>" +
 								"<div id='qrcode_public" + i + "' class='qrcode_public'></div>" +
 								"<div class='pubaddress'>" +
-									"<span class='label'>" + ninja.translator.get("paperlabelbitcoinaddress") + "</span>" +
+									"<span class='label'>" + ninja.translator.get("paperlabellitecoinaddress") + "</span>" +
 									"<span class='output' id='btcaddress" + i + "'></span>" +
 								"</div>" +
 							"</div>" +
@@ -142,11 +142,11 @@ ninja.wallets.paperwallet = {
 		return walletHtml;
 	},
 
-	showWallet: function (idPostFix, bitcoinAddress, privateKey) {
-		document.getElementById("btcaddress" + idPostFix).innerHTML = bitcoinAddress;
+	showWallet: function (idPostFix, litecoinAddress, privateKey) {
+		document.getElementById("btcaddress" + idPostFix).innerHTML = litecoinAddress;
 		document.getElementById("btcprivwif" + idPostFix).innerHTML = privateKey;
 		var keyValuePair = {};
-		keyValuePair["qrcode_public" + idPostFix] = bitcoinAddress;
+		keyValuePair["qrcode_public" + idPostFix] = litecoinAddress;
 		keyValuePair["qrcode_private" + idPostFix] = privateKey;
 		ninja.qrCode.showQrCode(keyValuePair);
 		document.getElementById("keyarea" + idPostFix).style.display = "block";
@@ -166,7 +166,7 @@ ninja.wallets.paperwallet = {
 
 		var walletHtml =
 							"<div class='artwallet' id='artwallet" + i + "'>" +
-		//"<iframe src='bitcoin-wallet-01.svg' id='papersvg" + i + "' class='papersvg' ></iframe>" +
+		//"<iframe src='litecoin-wallet-01.svg' id='papersvg" + i + "' class='papersvg' ></iframe>" +
 								"<img id='papersvg" + i + "' class='papersvg' src='" + image + "' />" +
 								"<div id='qrcode_public" + i + "' class='qrcode_public'></div>" +
 								"<div id='qrcode_private" + i + "' class='qrcode_private'></div>" +
@@ -176,12 +176,12 @@ ninja.wallets.paperwallet = {
 		return walletHtml;
 	},
 
-	showArtisticWallet: function (idPostFix, bitcoinAddress, privateKey) {
+	showArtisticWallet: function (idPostFix, litecoinAddress, privateKey) {
 		var keyValuePair = {};
-		keyValuePair["qrcode_public" + idPostFix] = bitcoinAddress;
+		keyValuePair["qrcode_public" + idPostFix] = litecoinAddress;
 		keyValuePair["qrcode_private" + idPostFix] = privateKey;
 		ninja.qrCode.showQrCode(keyValuePair, 2.5);
-		document.getElementById("btcaddress" + idPostFix).innerHTML = bitcoinAddress;
+		document.getElementById("btcaddress" + idPostFix).innerHTML = litecoinAddress;
 
 		if (ninja.wallets.paperwallet.encrypt) {
 			var half = privateKey.length / 2;
@@ -196,10 +196,10 @@ ninja.wallets.paperwallet = {
 		//if (paperSvg) {
 		//	svgDoc = paperSvg.contentDocument;
 		//	if (svgDoc) {
-		//		var bitcoinAddressElement = svgDoc.getElementById("bitcoinaddress");
+		//		var litecoinAddressElement = svgDoc.getElementById("litecoinaddress");
 		//		var privateKeyElement = svgDoc.getElementById("privatekey");
-		//		if (bitcoinAddressElement && privateKeyElement) {
-		//			bitcoinAddressElement.textContent = bitcoinAddress;
+		//		if (litecoinAddressElement && privateKeyElement) {
+		//			litecoinAddressElement.textContent = litecoinAddress;
 		//			privateKeyElement.textContent = privateKeyWif;
 		//		}
 		//	}
